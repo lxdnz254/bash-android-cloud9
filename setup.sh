@@ -5,6 +5,7 @@
 #  best in cloud 9 to just right click this file and select run
 
 echo "A needed java dependency, Note there may be others for more advanced Apps!!!"
+sudo apt-get update
 sudo apt-get install lib32z1  openjdk-7-jdk
  
  
@@ -24,10 +25,14 @@ echo "Now get the Android SDK"
 cd /home/ubuntu/workspace/
 
 wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz -O /home/ubuntu/workspace/android-sdk_r24.4.1-linux.tgz
-
 tar -xvzf /home/ubuntu/workspace/android-sdk_r24.4.1-linux.tgz -C /home/ubuntu/workspace/
-
 rm android-sdk_r24.4.1-linux.tgz
+
+
+#submitted by ismail-s faster way to do the above
+# but seems to have issues so I got rid of it
+#wget http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz -O - | tar -xvf -
+
 
 #chmod a+x android-sdk_r24.4.1-linux.bin
 #./android-sdk_r24.4.1-linux.bin
@@ -43,7 +48,7 @@ export ANDROID_SDK_HOME=/home/ubuntu/workspace/android-sdk-linux
 export PATH=$PATH:$ANDROID_SDK_HOME/tools
 export PATH=$PATH:$ANDROID_SDK_HOME/platform-tools
 
-
+sudo chown -R ubuntu:ubuntu /home/ubuntu/workspace/android-sdk-linux
 
 
 
@@ -60,51 +65,32 @@ export PATH=$PATH:$ANDROID_SDK_HOME/platform-tools
 #echo "-------------Android SDK DONE-------------------------------------------------"
 #echo ". "
 
+
+
+
+echo "Darn it the Android NDK is too big. so not installing it"
+
 #echo "Now lets try the Android NDK"
 
+#wget http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin -O /home/ubuntu/workspace/android-ndk-r10e-linux-x86_64.bin
+#cd /home/ubuntu/workspace/
 
+#chmod a+x android-ndk-r10e-linux-x86_64.bin
+#./android-ndk-r10e-linux-x86_64.bin
+#rm android-ndk-r10e-linux-x86_64.bin
 
-wget http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin -O /home/ubuntu/workspace/android-ndk-r10e-linux-x86_64.bin
+#echo "export paths to the .profile file so other terminals can use android NDK"
+#printf "\nexport ANDROID_NDK_HOME=/home/ubuntu/workspace/android-ndk-r10e\nexport PATH=\$PATH:\$ANDROID_NDK_HOME"  >> ~/.profile
 
-cd /home/ubuntu/workspace/
-
-chmod a+x android-ndk-r10e-linux-x86_64.bin
-./android-ndk-r10e-linux-x86_64.bin
-
-rm android-ndk-r10e-linux-x86_64.bin
-
-
+#echo "export paths here so this file can use android NDK"
 #export ANDROID_NDK_HOME=/home/ubuntu/workspace/android-ndk-r10e
+#export PATH=$PATH:$ANDROID_NDK_HOME
 
-#export PATH=${PATH}:ANDROID_NDK_HOME
-#printf "export GRADLE_HOME=/home/ubuntu/workspace/gradle/latest\nexport PATH=\$PATH:\$GRADLE_HOME/bin"  >> ~/.profile
-
-echo "export paths to the .profile file so other terminals can use android NDK"
-
-printf "\nexport ANDROID_NDK_HOME=/home/ubuntu/workspace/android-ndk-r10e\nexport PATH=\$PATH:\$ANDROID_NDK_HOME"  >> ~/.profile
+#sudo chown -R ubuntu:ubuntu /home/ubuntu/workspace/android-ndk-r10e
 
 
 
-echo "export paths here so this file can use android NDK"
-export ANDROID_NDK_HOME=/home/ubuntu/workspace/android-ndk-r10e
-export PATH=$PATH:$ANDROID_NDK_HOME
-
-
-
-
-
-
-## Add Android and NPM paths to the profile to preserve settings on boot
-#SUGGEST TRYING THESE COMMANDS
-#echo "export PATH=\$PATH:$ANDROID_SDK_HOME/tools" >> ".profile"
-#echo "export PATH=\$PATH:$ANDROID_SDK_HOME/platform-tools" >> ".profile"
-
-
-
-
-
-
-echo "-------------Android SDK  NDK installed but not setup-------------------------------------------------"
+#echo "-------------Android SDK  NDK installed but not setup-------------------------------------------------"
 
 
 echo "You may have to enter Y several times"
@@ -169,69 +155,16 @@ echo "--------------------------------------------------------------------------
 echo "------------------------------------------------------------------------------"
 echo "------------------------------------------------------------------------------"
 echo "------------------------------------------------------------------------------"
-Echo "Now the fun part, Lets make the Hello World App"
-
-#!/bin/bash  
-
-#  only need to run this script with the command (do not type the #)
-#  bash a06-rocksetta-setup-android.sh
-# best in cloud 9 to just right click this file and select run
-
-
-#change hello-world to the name of your app and folder
-
-
-echo "Creting an App called: helloWorld for Android KitKat version 4.4.2W "
-wow4=helloWorld
-
-
-
-android create project \
---target android-20 \
---name $wow4 \
---path $wow4 \
---activity MainActivity \
---package com.example.$wow4
+echo "Now the fun part, Lets make the Hello World App for both Ant and Gradle"
 
 
 
 
 
-#android update project --path .
+bash a00-auto-ant-gradle.sh
 
-#ant
+echo "Now lets start Apache"
 
-android update project --name $wow4 --target android-20 --path $wow4
+bash a04-restart-webserver.sh
 
-cd $wow4
-
-ant clean
-
-ant debug
-
-cd bin
-
-
-printf "\n\n<a href='$wow4/bin/$wow4-debug.apk'>$wow4/bin/$wow4-debug.apk</a><br>"  >> /home/ubuntu/workspace/index.html
-
-
-
-ls -l
-
-
-echo "Look for you new android $wow4/bin $wow4-debug.apk"
-echo "rightclick run index.html, then preview-preview running application to view webpage with .apk"
-
-
-echo "Activating apache2 webserver"
-
-service apache2 start
-
-
-echo "Or just click this link and open the web page"
-echo ""
-echo ""
-echo ""
-
-echo "http://$C9_HOSTNAME"
 
