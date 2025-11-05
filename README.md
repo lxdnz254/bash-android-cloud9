@@ -1,4 +1,27 @@
 # bash-install-android-sdk-auto-app-create-on-cloud9
+
+## ⚠️ REPOSITORY RETIRED - NON-FUNCTIONAL ⚠️
+
+**This repository is no longer functional as of November 2025.**
+
+### Critical Issues:
+- ❌ **AWS Cloud9 closed to new customers** (July 25, 2024)
+- ❌ **All download URLs return 403 Forbidden** (Android SDK, Gradle)
+- ❌ **All components severely outdated** (Java 7, Android 4.4/5.1 from 2013-2014)
+- ❌ **Security vulnerabilities** in unmaintained dependencies
+
+### For Modern Android Development:
+- Use **Android Studio** (official IDE): https://developer.android.com/studio
+- Use **Android Command Line Tools**: https://developer.android.com/studio#command-tools
+- Target **Android 14/15** (API 34/35), minimum **Android 7.0** (API 24)
+- Use **Java 17+ LTS** and **Gradle 8.x**
+
+**📄 See [ASSESSMENT.md](ASSESSMENT.md) for detailed analysis and modern alternatives.**
+
+---
+
+## Original Description (Historical)
+
 using bash to automate the Android-SDK install specific to cloud9 and then create a debug HelloWorld App and Access webpage for Android 4.4.0 Kitkat, can also do Android versions 5.1
 
 Android SDK and Java on Cloud9
